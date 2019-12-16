@@ -1,13 +1,31 @@
 #!/bin/bash
 
+function add_test_header(){
+    TEST_NAME=$(cat ${TEST_HOME}/name)
+    TEST_TYPE="Public"
+    if [ -e ${TEST_HOME}/private ]; then
+        TEST_TYPE="Private"
+    fi
+
+    if [[ -s test-report ]]; then
+        echo "  ${TEST_NAME} FAILED (${TEST_TYPE})" | cat - test-report > temp && mv temp test-report
+    else
+        echo "  ${TEST_NAME} PASSED (${TEST_TYPE})" | cat - test-report > temp && mv temp test-report
+    fi
+}
+
+
 if [ "$#" -ne 3 ]; then
     echo "Illegal number of parameters. Provide test home and project home"
     exit 1
 fi
 
-TEST_HOME=$1
-PROJECT_HOME=$2
-ORACLE_HOME=$3
+TEST_HOME="$(realpath "$1")"
+PROJECT_HOME="$(realpath "$2")"
+#
+# The oracle is a program, most likely your previous implementation of MasterMild if that had no bugs, which is used
+# to generate the expecte.output and the input files necessary for checking the assertions
+ORACLE_HOME="$(realpath "$3")"
 
 # Move in program folder
 cd ${PROJECT_HOME}
@@ -22,8 +40,21 @@ cp ${TEST_HOME}/secret.code ${PROJECT_HOME}
 # Additionally, there's no input nor expected output at this point we need to find another way
 if [ -e "${TEST_HOME}/default" ]; then
         java -cp $(echo lib/*.jar | tr ' ' ':') > ${TEST_HOME}/output 2> ${TEST_HOME}/error
-else
+elif [ -e ./run.sh ]; then
         ./run.sh > ${TEST_HOME}/output 2> ${TEST_HOME}/error
+else
+    # Here we have the situation that run.sh is not present so we could not run any test
+    cd ${TEST_HOME}
+
+    # Clean up stale report file.
+    if [ -e test-report ]; then rm test-report; fi
+
+    # Write in the test-report
+    echo "    Test did not run, I cannot find run.sh" >> test-report
+
+    add_test_header
+    # Exit with error
+    exit 1
 fi
 
 # Extract inputs from outputs
@@ -82,15 +113,4 @@ if [ "$(cat ${TEST_HOME}/game.result)" == "lost" ]; then
     done
 fi
 
-
-TEST_NAME=$(cat ${TEST_HOME}/name)
-TEST_TYPE="Public"
-if [ -e ${TEST_HOME}/private ]; then
-    TEST_TYPE="Private"
-fi
-
-if [[ -s test-report ]]; then
-    echo "  ${TEST_NAME} FAILED (${TEST_TYPE})" | cat - test-report > temp && mv temp test-report
-else
-    echo "  ${TEST_NAME} PASSED (${TEST_TYPE})" | cat - test-report > temp && mv temp test-report
-fi
+add_test_header

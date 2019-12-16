@@ -7,8 +7,8 @@ if [ "$#" -ne 2 ]; then
     exit 1
 fi
 
-TEST_HOME=$1
-PROJECT_HOME=$2
+TEST_HOME="$(realpath "$1")"
+PROJECT_HOME="$(realpath "$2")"
 
 # Ensures that the secret.code file is where it is supposed to be
 cp ${TEST_HOME}/secret.code ${PROJECT_HOME}
