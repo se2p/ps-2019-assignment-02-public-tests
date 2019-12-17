@@ -92,8 +92,6 @@ cat ${TEST_HOME}/output | grep -A 1 -i ">> Guess" | grep -v ">> Guess" | grep -v
 
 ###########
 
-set -x
-
 # Move in oracle folder
 cd ${ORACLE_HOME}
 
@@ -116,8 +114,6 @@ fi
 
 # Clean up oracle folder
 rm ${ORACLE_HOME}/secret.code
-
-set +x
 
 #######
 
