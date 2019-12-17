@@ -76,8 +76,8 @@ fi
 
 ### At this point the test ran
 
-# Not really needed
-cd -
+# Is this really needed ?
+cd - > /dev/null
 
 # Clean up the project folder
 rm ${TASK_HOME}/secret.code
@@ -159,7 +159,8 @@ fi
 
 echo "  ${TEST_NAME} ${TEST_STATUS} (${TEST_TYPE})" | cat - test-report > temp && mv temp test-report
 
-cd -
+# Is this really needed ?
+cd - > /dev/null
 
 # TODO Clean up should be ensured... RAII?! TRAP the errors?
 # Clean up test execution files if test passed
@@ -172,3 +173,7 @@ if [ "${TEST_STATUS}" == "PASSED" ]; then
     rm ${TEST_HOME}/expected.error  # Generated
     rm ${TEST_HOME}/game.result     # Generated
 fi
+
+# Print to the console the result of running this test
+echo ""
+cat ${TEST_HOME}/test-report
