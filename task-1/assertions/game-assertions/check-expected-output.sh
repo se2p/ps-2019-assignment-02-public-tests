@@ -10,7 +10,7 @@ SECRET_CODE_FILE=secret.code
 FAIL_MESSAGE="Output is different"
 
 # Check output by diff
-diff ${EXPECTED_OUTPUT_FILE} ${OUTPUT_FILE} > ${DIFF_FILE} 2>&1
+diff --strip-trailing-cr ${EXPECTED_OUTPUT_FILE} ${OUTPUT_FILE} > ${DIFF_FILE} 2>&1
 
 error=$?
 if [ ! $error -eq 0 ]; then
