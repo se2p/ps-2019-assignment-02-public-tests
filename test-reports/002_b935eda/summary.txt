@@ -1,0 +1,51 @@
+META: Report generated on Fri Jan 3 13:28:31 CET 2020
+Task 1 
+  test01 FAILED (Private)
+    Output is different
+    Secret code has wrong number of digits
+  test02 FAILED (Private)
+    Output is different
+    Wrong Won Message
+  test01 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test02 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test03 FAILED (Public)
+    Output is different
+    Secret code has wrong number of digits
+  test04 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test05 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test06 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test07 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test03 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test09 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test10 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test11 FAILED (Public)
+    Output is different
+    Wrong Won Message
+  test12 FAILED (Public)
+    Output is different
+    Wrong Won Message
+Task 2 
+  test01 FAILED (Private)
+    Test did not run, I cannot find run.sh
+TIMEOUT 
+  test01 FAILED (Public)
+    Test did not run, I cannot find run.sh
+TIMEOUT 
