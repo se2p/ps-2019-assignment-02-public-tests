@@ -69,6 +69,9 @@ if [ -e "${TEST_HOME}/default" ]; then
     # This should trigger the DEFAULT CLIENT. Untested.
     java -cp $(echo lib/*.jar | tr ' ' ':') > ${TEST_HOME}/output 2> ${TEST_HOME}/error
 elif [ -e ./run.sh ]; then
+    # Make run.sh executable
+    chmod +x run.sh
+    # Execute run.sh
     ./run.sh > ${TEST_HOME}/output 2> ${TEST_HOME}/error
 else
     skip_test_and_exit_with_error
