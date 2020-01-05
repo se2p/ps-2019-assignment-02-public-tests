@@ -102,8 +102,16 @@ cd ${ORACLE_HOME}
 cp ${TEST_HOME}/secret.code ${ORACLE_HOME}
 
 # Run the oracle with the generated input to obtain the expected.output
+if [ -e "build.sh" ]; then
+    # Use the provided run.sh to build and run the oracle
+    chmox +x build.sh
+    ./build.sh
+fi
+
+# Use standard command to run the oracle
 cat ${TEST_HOME}/input | \
     java MasterMild > ${TEST_HOME}/expected.output 2> ${TEST_HOME}/expected.error
+
 
 # Was this a won match or a lost match? Compare the input with the value inside "secret" and then decide
 # ALTERNATIVE: Check using the oracle's output (expected output). SAFE: do both
